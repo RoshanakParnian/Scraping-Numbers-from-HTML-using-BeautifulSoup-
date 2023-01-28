@@ -1,0 +1,33 @@
+...
+The program will use urllib to read the HTML from the data files below, and parse the data, extracting numbers and compute the sum of the numbers in the file.
+...
+We provide two files for this program . 
+One is a sample file where we give you the sum for your testing and the other is the actual data you need to process for the program.
+
+Sample data: http://py4e-data.dr-chuck.net/comments_42.html (Sum=2553)
+Actual data: http://py4e-data.dr-chuck.net/comments_1641433.html (Sum ends with 64)
+
+we must find all the <span> tags in the file and pull out the numbers from the tag and sum the numbers.
+
+
+import urllib.request , urllib.parse , urllib.error
+from bs4 import BeautifulSoup
+import re
+sum = 0
+count = 0
+url = input('ENTER-')
+html = urllib.request.urlopen(url).read()
+soup = BeautifulSoup(html , 'html.parser')
+bs = soup('span')
+for tag in bs :
+    tags = str(tag)
+    number = re.findall('>([0-9]+)<' , tags)
+    count = count + 1
+    for num in number :
+        numb = int(num)
+        sum = sum + numb
+
+print('~~COUNT :' , count)
+print('~~SUM :' , sum)
+
+...
